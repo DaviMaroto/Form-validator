@@ -9,12 +9,10 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 html {
     font-family: "Poppins", sans-serif;
     height: 100%;
 }
-
 body {
     height: 100vh;
 
@@ -24,7 +22,6 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
 }
-
 form {
     background: rgba(255, 255, 255, 0.03);
     width: 100%;
@@ -57,24 +54,23 @@ button {
     outline: none;
     color: var(--text-color);
     font-size: 1em;
-
+    
 }
 button {
     margin-top: 16px;
     background-color: var(--primary-color);
+    cursor: pointer;
 }
 input ~ label {
     position: absolute;
     top: 16px;
     left: 0;
-
-    color: rgba(255, 255, 255, 0.6) ;
-
+    color: rgba(255, 255, 255, 0.6);
     transition: .4s;
 }
 input:focus ~ label,
 input:valid ~ label {
-    transform: translateY(-24px);
+    transform: translateY(-24px); /*Faz com que o label fique acima do input*/
     font-size: 0.8em;
     letter-spacing: 0.1em;
 }
