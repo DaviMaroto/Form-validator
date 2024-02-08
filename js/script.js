@@ -8,6 +8,10 @@ const field = document.querySelectorAll("[required]") //pega todos os inputs que
 console.log(field)
 
 function customValidation(event) {
+
+    // eliminar o bubble, bolinha de disparo
+    event.preventDefault()
+
     const fields = event.target
 
     //Verificar se existem erros
