@@ -7,37 +7,56 @@ document.querySelector("form").addEventListener("submit", evert => {
 const field = document.querySelectorAll("[required]") //pega todos os inputs que estão com o campo required
 console.log(field)
 
-function customValidation(event) {
-
-    // eliminar o bubble, bolinha de disparo
-    event.preventDefault()
-
-    const fields = event.target
-
-    //Verificar se existem erros
-    function verifyError() {
+function validateField(fields){
+    function verifyErrors() {
         let foundError = false
 
         for (const error in fields.validity) {
             // se não tiver customError
             // Então verifica se tem erro 
-            if (error != "customError" && fields.validity[error]) {
+            if (fields.validity[error] && !fields.validity.valid ) {
                 foundError = error
             }
         }
+
         return foundError
     }
-    const error = verifyError()
-    console.log("Error Exists", error)
 
-    if (error) {
-        fields.setCustomValidity("Esse campo é obrigatório") //Troca mensagem de required
-    } else {
-        fields.setCustomValidity("")
+    function setCustomMessage(message){
+        const spanError = fields.parentNode.querySelector("span.error")
+       
+        if(message){
+        spanError.classList.add("active")
+        spanError.innerHTML = message
+        }else{
+        spanError.classList.remove("active")
+        spanError.innerHTML = ""    
+        }
+        
     }
+    return function(){
+        if(verifyErrors()){
+            setCustomMessage("campo obrigatório")
+        }else{
+            setCustomMessage()
+        }
+    }
+}
+function customValidation(event) {
+
+    const fields = event.target
+    const validation = validateField(fields)
+    
+    validation()
 
 }
 
 for (fields of field) { //atribui um input a variavel fields
-    fields.addEventListener("invalid", customValidation) //evento invalido
+    fields.addEventListener("invalid", event => {
+        // eliminar o bubble, bolinha de disparo
+        event.preventDefault()
+
+        customValidation(event)
+    }) //evento invalido
+    fields.addEventListener("blur", customValidation) //Blur = Foco
 }
