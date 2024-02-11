@@ -21,6 +21,18 @@ function validateField(fields){
 
         return foundError
     }
+    function customMessage(typeError){
+        const message = {
+            text: {
+                valueMissing: "por favor, preencha este campo"
+            },
+            email:{
+                valueMissing: "o campo email é obrigatório",
+                typeMismatch: "Digite um email válido"
+            }
+        }
+        return message[fields.type][typeError]
+    }
 
     function setCustomMessage(message){
         const spanError = fields.parentNode.querySelector("span.error")
@@ -35,15 +47,20 @@ function validateField(fields){
         
     }
     return function(){
-        if(verifyErrors()){
-            setCustomMessage("campo obrigatório")
+        const error = verifyErrors()
+        
+        if(error){
+            const message = customMessage(error)
+
+            fields.style.borderColor = "red"
+            setCustomMessage(message)
         }else{
+            fields.style.borderColor = "green"
             setCustomMessage()
         }
     }
 }
 function customValidation(event) {
-
     const fields = event.target
     const validation = validateField(fields)
     
