@@ -11,7 +11,7 @@ index.html: Página principal do site.
 Para executar o projeto localmente, siga estas etapas:
 
 #### Clone o repositório:
-git clone https://github.com/DaviMaroto/Form-validator.git
+git clone https://github.com/DaviMaroto/Form-validator
 
 #### Navegue até o diretório do projeto:
 cd nome-do-repositorio
